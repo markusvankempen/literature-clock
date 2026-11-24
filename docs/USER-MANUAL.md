@@ -2,7 +2,7 @@
 
 This guide is for the **Waveshare ESP32-S3-Touch-LCD-7** (7″) and **Waveshare ESP32-S3-Touch-LCD-4.3B** (4.3″ with onboard **PCF85063A RTC**) literature clocks. Both run the full 800×480 RGB panel firmware (`waveshare-lcd7` and `waveshare-lcd43`), and the same **phone settings page** runs on the clock and in the developer preview; screenshots below were taken from that page at phone width.
 
-For a full technical reference (every screen on the panel, serial commands, API), see [FEATURES.md](FEATURES.md).
+For a full technical reference (every screen on the panel, serial commands, API), see [FEATURES.md](FEATURES.md). Printable PDF edition: **[USER-MANUAL.pdf](USER-MANUAL.pdf)**.
 
 ---
 

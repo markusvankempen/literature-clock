@@ -8,7 +8,7 @@ This public repository hosts the **user documentation** and **compiled OTA firmw
 
 ## Documentation
 
-- **[User Manual](docs/USER-MANUAL.md)** — Setup guide, live phone-width screenshots for all 12 tabs, touch gestures map, and factory defaults.
+- **[User Manual](docs/USER-MANUAL.md)** ([printable PDF](docs/USER-MANUAL.pdf)) — Setup guide, live phone-width screenshots for all 12 tabs, touch gestures map, and factory defaults.
 - **[Features & Technical Reference](docs/FEATURES.md)** — Full screen-by-screen behaviour, Web API, Serial CLI commands, NVS settings, and hardware notes.
 
 ### Web UI screenshots
