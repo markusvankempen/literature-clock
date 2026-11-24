@@ -191,30 +191,29 @@ brightness panel (showing today's computed sunrise and sunset), M5Paper Setup ro
 
 ## 8. Clock faces
 
-Choose **Clock face** in Setup, or on the phone's **Face** tab. Seven choices:
+Choose **Clock face** in Setup, or on the phone's **Face** tab. Eight choices:
 
 | Face | Description |
 |---|---|
 | Page | The quote page (default) |
 | Classic | Black and white dial |
 | 1950 | Rectangular 1950s dial |
-| Flip | Split-flap digits that flip when a digit changes |
+| Flip | 4 or 6 individual split-flap digit cards (`HH MM` / `HH MM SS`) that flip when a digit changes |
 | Digital | Large digital time |
-| Split | Dial split in two colours, the other way round from the ground |
-| Square | 1970s retro rounded-chassis analog dial with squarish numerals, slash indices, burgundy hour dots, and 3D beveled baton hands (`clockFace=7`) |
+| Split | High-contrast top and bottom dial halves, synced to paper palettes when selected |
+| Square | 1970s retro rounded-chassis analog dial with 6× antialiased numerals, slash indices, burgundy hour dots, and beveled baton hands (`clockFace=7`; fills the screen in Zen mode) |
+| Nixie | Glowing glass cathode vacuum tubes (`clockFace=8`, 4 or 6 digits) with neon colons and AM/PM indicator |
 
 Options (each is a chip on the panel and a select on the phone):
 
-- **Seconds** — show seconds (analog second hand or digital seconds).
+- **Seconds** — show seconds (analog second hand or 6-digit Flip/Nixie/Digital seconds).
 - **Numbers** — dial numerals shown or hidden. With Split, hidden numbers become solid hour points.
-- **Date**, **Digital time**, **Weather** — small captions under the face. All off until you turn them on.
+- **Date**, **Digital time**, **Weather** — small captions under the face (hidden in full-screen Zen mode). All off until you turn them on.
 - **Minute marks** (Classic and 1950) and **Bar hands** (Classic, 1950, and Square) — pointed/beveled hands or straight bars.
-- **Invert** (Classic, Flip, Digital, and Square) — dark dial / light-on-dark swap.
-- **Paper colors** — replace the face's own colours with the chosen palette. Choosing a new palette
-  switches this on for you.
-- **Blink :** (Digital) — the colon blinks each second.
-- **Colours** — Split: top half, bottom half, hour points, second hand. 1950: numbers, hour points, minute
-  ticks. Fourteen swatches on the panel; any colour on the phone.
+- **Invert** (Classic, Flip, Digital, Square, and Nixie) — dark dial / brushed-metal palette swap.
+- **Paper colors** — replace the face's own colours with the chosen palette (Split adds **From palette**). Choosing a new palette switches this on for you.
+- **Blink :** (Flip, Digital, and Nixie) — the colon blinks each second.
+- **Colours** — Split: top half, bottom half, hour points, second hand. 1950: numbers, hour points, minute ticks. Fourteen swatches on the panel; any colour on the phone.
 
 Faces redraw once a second when seconds or a blinking colon are on.
 
@@ -470,7 +469,7 @@ Because the Literature pack lives inside firmware flash and **Waveshare 7" & 4.3
 **single-file OTA binary with no SD card required**. The **Update** tab supports:
 
 - **Upload .bin** — choose the `firmware.bin` built for this board (`waveshare-lcd7`, `waveshare-lcd43`, `m5paper`, or `cyd-28`).
-- **Check for update** — compares `FW_VERSION` (`1.2.0`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
+- **Check for update** — compares `FW_VERSION` (`1.2.1`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
 - **Install from address / on-device Setup → Check update** — fetches `latest.txt` and installs `latest/firmware.bin` if newer, showing a live animated **`0%–100%` progress bar** on the clock screen (also shown during `.bin` uploads and serial `update`).
 - **Daily check (03:00)** — **Off** by default (opt-in on the **Update** tab, `/api/settings` `autoUpdate`,
   or serial `autoupdate on`). Checks `firmware/<board>/latest.txt` from
@@ -530,17 +529,17 @@ the clock on a network you trust.
 | `/api/device` | GET | Name, IP and phone-page address |
 
 `/api/settings` fields (send only what you change): `tz` (built-in or POSIX rule), `clock24`, `interval`, `random`, `power` (`0`–`3`, or `on`/`off`), `powerMode` (`0`–`3`), `theme`,
-`lamp`, `ink`, `font`, `fontFace`, `night` (`0`–`3`), `zen`, `clockFace` (`0`, `2`–`7`), `rotation` (`0`, `90`, `180`, `270`), `seconds`, `numbers`, `faceTime`, `faceDate`,
+`lamp`, `ink`, `font`, `fontFace`, `night` (`0`–`3`), `zen`, `clockFace` (`0`, `2`–`8`), `rotation` (`0`, `90`, `180`, `270`), `seconds`, `numbers`, `faceTime`, `faceDate`,
 `faceWeather`, `faceInvert`, `facePaper`, `blink`, `minutes`, `rectHands`, `faceBg`, `faceBg2`, `faceDot`,
 `faceSec`, `vinNum`, `vinDot`, `vinMin`, `greetOn`, `greetOnWake`, `greetText`, `greetFont`, `greetAnim`,
 `greetSize`, `greetColorMode`, `greetCol1`, `greetCol2`, `sleep` (`0`–`2`), `sleepMode` (`0`–`2`), `sleepFrom`, `sleepTo` (`HH:MM`), `alarm` (`0`/`1`), `alarmAt` (`HH:MM`), `ambient`,
-`ambientWhere`, `ambientAmount`, `ambientZen`, `ambientFaces`, `weather`, `units`, `place`, `lat`, `lon`, `autoUpdate` (`0`/`1`), `epoch` (UTC Unix
+`ambientWhere`, `ambientAmount`, `ambientZen`, `ambientFaces`, `weather`, `units`, `place`, `lat`, `lon`, `apPass` (blank or `8`–`63` chars), `autoUpdate` (`0`/`1`), `epoch` (UTC Unix
 seconds, parsed via `strtoll` to set system clock, hardware RTC, and NVS directly), or
 `date` with `tod` (and optionally `sec`, `0`–`59`). Colours are `#rrggbb`. The reply is the new status.
 
 ## 23. Serial console
 
-115200 baud (use the **UART** USB-C port on Waveshare 7", or the **native** USB-C port on 4.3B). Type `help` for the list.
+115200 baud (use either the **UART** or **native** USB-C port on Waveshare 7", or the **native** USB-C port on 4.3B). Type `help` for the list.
 
 | Command | Effect |
 |---|---|
@@ -552,13 +551,16 @@ seconds, parsed via `strtoll` to set system clock, hardware RTC, and NVS directl
 | `power 0\|1\|2\|3\|always\|idle\|battery\|saver` | Power / Wi-Fi / battery saver mode (`0` always on, `1` sleep idle Wi-Fi, `2` auto on battery, `3` battery saver always) |
 | `offline on\|off`, `weather on\|off` | Switches |
 | `units c\|f`, `place <city>`, `coords <lat> <lon>` | Weather & Sunrise/Sunset location |
-| `theme 0-11`, `face <page\|classic\|1950\|flip\|digital\|split\|square>`, `rotate <0\|90\|180\|270>`, `night off\|auto\|sun\|on`, `clock 12\|24` | Look, clock face, orientation |
+| `theme 0-11`, `face <page\|classic\|1950\|flip\|digital\|split\|square\|nixie>`, `rotate <0\|90\|180\|270>`, `night off\|auto\|sun\|on`, `clock 12\|24` | Look, clock face, orientation |
 | `sleep off\|on\|sun\|now\|wake\|<from> <to>`, `blackout on\|off` | Scheduled/sun blackout or instant screen sleep/wake |
 | `zen on\|off` | The words alone |
+| `setup [done]`, `factoryreset confirm` | Re-open first-time setup wizard (or mark complete) / wipe NVS &amp; Wi-Fi |
+| `greet [on\|off\|show\|wake on\|off\|font 0-2\|anim 0-6\|text <msg>]` | Greeting toggle, show now, style, or message |
 | `alarm 07:30\|off` | Alarm |
 | `wifi <ssid> <pass>`, `wifi forget`, `scan` | Wi-Fi |
+| `ap [pass <pw>\|off]` | Phone AP status or optional WPA2 password (`8`–`63` chars) |
 | `autoupdate on\|off`, `checkupdate`, `update [check]` | Toggle daily `03:00` GitHub OTA check, check `latest.txt` only, or check and install if newer |
-| `quote`, `ap`, `url`, `i2c`, `reboot` | Actions (`i2c` scans `0x08..0x77` on Waveshare `GPIO 8/9`) |
+| `quote`, `url`, `i2c`, `reboot` | Actions (`i2c` scans `0x08..0x77` on Waveshare `GPIO 8/9`) |
 
 Waveshare panel tuning (these reboot the clock): `panel` (show timing), `panel pclk 10-20`, `panel color 8|16`,
 `panel porch <hbp> <hfp> <vbp> <vfp>`, `panel reset`; `freeze on|off` to stop drawing; `bl on|off`, `bl test`,
@@ -593,6 +595,8 @@ scheduling uses wrap-safe `millisReached` / `millisElapsed` helpers across the ~
 | Zen | `zen` | off |
 | Power & battery saver | `pwrMode` (`pwrSave`) | `0` Always on (`1` idle Wi-Fi 120s, `2` auto on battery, `3` battery saver always) |
 | Daily auto-update | `autoUpd` | off (`0` manual only, `1` check `03:00` daily if connected) |
+| Setup AP password | `appass` | empty (`open`; `8`–`63` chars enables WPA2 on `LiteratureClock`) |
+| First-time setup | `setup` | false on factory reset (`1` once finished or skipped) |
 | Offline | `offline` | off |
 
 Out-of-range values from the phone, the serial console or an import are clamped when saved.

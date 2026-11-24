@@ -35,19 +35,19 @@ For a full technical reference (every screen on the panel, serial commands, API)
 | Area | What you can do |
 |------|------------------|
 | **Page** | See the current quote; **Sync time + TZ** quick button, **Blackout / Sleep now** (or **Wake screen**) button, turn the page, refresh, zen on phone or on clock; header shows **battery icon** when a sensor is present |
-| **Wi‑Fi** | Scan, join a network, forget saved network |
+| **Wi‑Fi** | Scan, join a network, forget saved network, set optional Clock AP password (8–63 chars) |
 | **Time** | Searchable **24-zone global list** (`UTC±HH · City`) + **Custom POSIX TZ** input, automatic DST rule synthesis from your browser, live clock-vs-browser drift readout, 3 browser sync buttons (`Sync time + TZ`, `Sync time only`, `Sync TZ only`), manual date/time, hardware RTC status, 12/24‑hour, page turn schedule, **Sleep / blackout mode** (`Off`, `Schedule`, or `Auto Sunset–Sunrise`) with today’s sun times + **Blackout now**, alarm |
-| **Face** | Quote page or clock faces (Classic, 1950, Flip, Digital, Split, Square) and face options |
+| **Face** | Quote page or 7 clock faces (Classic, 1950, Flip, Digital, Split, Square, Nixie) and face options |
 | **Look** | Paper palette, lamp/text/both brightness, type size (`Small`, `Medium`, `Large`, or **`Auto (fill screen)`** to maximize quote text without scrolling), typeface, **Night paper** (`Off`, `Auto 21–06`, `Auto Sunset–Sunrise`, `Always dark`), zen, **Screen rotation** (`0°` / `90°` / `180°` / `270°`) |
-| **Greeting** | Words at power‑on (and optionally after sleep), lettering, colours, animations |
+| **Greeting** | Words at power‑on (and optionally after sleep — editable from phone, panel Effects → Edit text, or Serial `greet`), lettering, colours, animations |
 | **Effects** | Drifting snow, leaves, petals, fireflies, night sky, rain, hearts, or by season |
 | **Weather** | Line under the date (Open‑Meteo, no API key, cached place lookup) plus Latitude / Longitude fields (auto-filled or manual offline for Sunrise / Sunset) |
 | **Quotes** | Information only — the Literature collection lives directly in internal flash so updates ship as one OTA binary with no SD card required |
-| **System** | Board name, IP, Wi‑Fi RSSI, firmware version, hardware **Clock RTC** status (`verified via NTP` / `RTC-first`), **Power mode**, **Rotation**, today’s sun times, **Battery** telemetry (`%`, `mV`, charging, sensor), restart |
-| **Update** | **Check for update** against GitHub (`v1.2.0`), install from an HTTP/HTTPS URL (`firmware/<board>/latest.txt` → `latest/firmware.bin`) or local `.bin` with an animated `0%–100%` on-screen progress bar, plus optional **Daily check (03:00)** (Off by default) |
+| **System** | Board name, IP, Wi‑Fi RSSI, firmware version, hardware **Clock RTC** status (`verified via NTP` / `RTC-first`), **Power mode**, **Rotation**, today’s sun times, **Battery** telemetry (`%`, `mV`, charging, sensor), **Setup wizard**, restart, **Factory reset** |
+| **Update** | **Check for update** against GitHub (`v1.2.1`), install from an HTTP/HTTPS URL (`firmware/<board>/latest.txt` → `latest/firmware.bin`) or local `.bin` with an animated `0%–100%` on-screen progress bar, plus optional **Daily check (03:00)** (Off by default) |
 | **Advanced** | **Power &amp; battery saver** (`Always on`, `Sleep Wi-Fi when idle`, `Auto on battery`, `Battery saver always`), export/import settings, I2C bus discovery (including RTC `0x51`/`0x68`, touch `0x5D`, CH422G `0x24`, INA219 `0x40`) |
 
-**On the panel only (7″ & 4.3B):** full **Setup** grid, brightness sliders, palette picker, on‑screen Wi‑Fi keyboard, **Alarm and sleep** and **Effects** sub‑screens, plus multi-directional swipe and long-press touch gestures. All boards (including M5Paper 2‑page and CYD 2.8″ 4‑page pickers) support selecting from the **24 built-in time zones** directly in Setup, while the phone page covers almost everything else.
+**On the panel only (7″ & 4.3B):** full **Setup** grid, brightness sliders, palette picker, on‑screen Wi‑Fi keyboard & **greeting text editor** (`Effects → Edit text`), **Alarm and sleep** and **Effects** sub‑screens, plus multi-directional swipe and long-press touch gestures. All boards (including M5Paper 2‑page and CYD 2.8″ 4‑page pickers) support selecting from the **24 built-in time zones** directly in Setup, while the phone page covers almost everything else.
 
 ---
 
@@ -67,7 +67,7 @@ See the live quote, tap **Sync time + TZ** for one-click UTC + timezone sync fro
 
 ### Wi‑Fi
 
-Scan for networks, enter password, join or forget.
+Scan for networks, enter password, join or forget, or set an optional WPA2 password (8–63 characters, or blank for open) for the `LiteratureClock` setup access point.
 
 ![Wi‑Fi tab](images/manual/tab-wifi.png)
 
@@ -79,7 +79,7 @@ Choose from **24 global time zones** (`UTC−10` Hawaii to `UTC+12` Auckland) us
 
 ### Face
 
-Choose the quote page or any of the 6 clock faces (**Classic**, **1950 rectangle**, **Flip**, **Digital**, **Split**, and **Square 1970s retro**), plus options for seconds, date, digital time, weather on the face, hands, and colours.
+Choose the quote page or any of the 7 clock faces (**Classic**, **1950 rectangle**, **Flip** individual digit cards, **Digital**, **Split**, **Square 1970s retro**, and **Nixie tube**), plus options for seconds, date, digital time, weather on the face, hands, and colours. Square and Zen clock faces fill the screen cleanly in Zen mode.
 
 ![Square 1970s retro clock face preview](images/manual/preview-square.png)
 
@@ -258,7 +258,7 @@ The **same phone page** works, and both smaller boards support **Auto-Night Pape
 - **Sleep / blackout mode:** chooses **Off**, **Schedule (`From`–`Until`)**, or **Auto Sunset–Sunrise** — switches off the backlight and clears the screen to pure black with no page turns (or tap **Blackout now** for instant sleep); **touch the glass** to wake for one minute (or exit manual blackout).
 - **Alarm:** no sound — the whole screen **pulses** until you touch it.
 - **Hold BOOT** at power‑on (~2.5 s) to clear saved Wi‑Fi (7″ & 4.3B panels).
-- **Serial** (USB, 115200 baud): type `help` for commands (`status`, `i2c`, `power`, `rotate`, `font`, `autoupdate`, `checkupdate`, `update`, `panel`, `bl`, etc.). On Waveshare 7″ use the **UART** USB-C port; on 4.3B use the **native USB-C** port.
+- **Serial** (USB, 115200 baud): type `help` for commands (`status`, `i2c`, `power`, `rotate`, `font`, `face`, `greet`, `ap pass`, `setup`, `factoryreset confirm`, `autoupdate`, `checkupdate`, `update`, `panel`, `bl`, etc.). On Waveshare 7″ use either the **UART** USB-C port or native **USB** (`USB_CDC_ON_BOOT=1`); on 4.3B use the **native USB-C** port.
 - **Automated live verification &amp; docs screenshots:** run `python3 scripts/test_device_live.py` to test HTTP `/api/*` + Serial CLI end-to-end on connected hardware (and `node scripts/capture_manual_screenshots.mjs` to refresh manual screenshots from `include/web_app_html.h`). Prebuilt releases publish to [markusvankempen/literature-clock](https://github.com/markusvankempen/literature-clock).
 
 ---
