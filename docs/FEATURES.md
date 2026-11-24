@@ -470,10 +470,8 @@ Because the Literature pack lives inside firmware flash and **Waveshare 7" & 4.3
 **single-file OTA binary with no SD card required**. The **Update** tab supports:
 
 - **Upload .bin** — choose the `firmware.bin` built for this board (`waveshare-lcd7`, `waveshare-lcd43`, `m5paper`, or `cyd-28`).
-- **Install from address** — paste an `http`/`https` address of a `.bin` or a GitHub manifest such as
-  `https://raw.githubusercontent.com/markusvankempen/literature-clock/main/firmware/<board>/latest.txt`.
-  When given `latest.txt`, the clock compares the remote string against `FW_VERSION` (`1.1.0`); if newer,
-  it automatically fetches and flashes `latest/firmware.bin` from the same folder.
+- **Check for update** — compares `FW_VERSION` (`1.2.0`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
+- **Install from address / on-device Setup → Check update** — fetches `latest.txt` and installs `latest/firmware.bin` if newer, showing a live animated **`0%–100%` progress bar** on the clock screen (also shown during `.bin` uploads and serial `update`).
 - **Daily check (03:00)** — **Off** by default (opt-in on the **Update** tab, `/api/settings` `autoUpdate`,
   or serial `autoupdate on`). Checks `firmware/<board>/latest.txt` from
   [markusvankempen/literature-clock](https://github.com/markusvankempen/literature-clock) once per local calendar
@@ -525,8 +523,9 @@ the clock on a network you trust.
 | `/api/greet` | POST | Show the greeting now |
 | `/api/sleep` | POST | Trigger/clear instant blackout (`on` or `mode` = `1`/`on`, `0`/`off`/`wake`, or `toggle`) |
 | `/api/reboot` | POST | Restart |
-| `/api/update` | POST | Upload a firmware file |
-| `/api/update-url` | POST | Install firmware from an address (`url`, supports `.bin` or `latest.txt` → `latest/firmware.bin`) |
+| `/api/update` | POST | Upload a firmware file (shows live `0–100%` progress bar on screen) |
+| `/api/update-url` | POST | Install firmware from an address (`url`, supports `.bin` or `latest.txt` → `latest/firmware.bin`, with `0–100%` progress bar) |
+| `/api/update-check` | POST | Check `latest.txt` against running `FW_VERSION` without installing (`running`, `remote`, `updateAvailable`) |
 | `/api/i2c` | GET | I2C device discovery |
 | `/api/device` | GET | Name, IP and phone-page address |
 
@@ -547,7 +546,7 @@ seconds, parsed via `strtoll` to set system clock, hardware RTC, and NVS directl
 |---|---|
 | `status` | Wi-Fi, time, settings, hardware RTC (`hwRtc`), sun times (`sun`), sleep mode, and battery reading |
 | `tz <city\|posix\|list>` | Set time zone or list all 24 built-in zones |
-| `font s\|m\|l` | Type size |
+| `font s\|m\|l\|auto` | Type size (`auto` maximizes quote text without scrolling/clipping) |
 | `interval 1\|5\|15\|30\|60` | Page turn |
 | `random on\|off` | Any minute inside the window |
 | `power 0\|1\|2\|3\|always\|idle\|battery\|saver` | Power / Wi-Fi / battery saver mode (`0` always on, `1` sleep idle Wi-Fi, `2` auto on battery, `3` battery saver always) |
@@ -558,7 +557,7 @@ seconds, parsed via `strtoll` to set system clock, hardware RTC, and NVS directl
 | `zen on\|off` | The words alone |
 | `alarm 07:30\|off` | Alarm |
 | `wifi <ssid> <pass>`, `wifi forget`, `scan` | Wi-Fi |
-| `autoupdate on\|off`, `update` | Enable/disable daily `03:00` GitHub OTA check, or trigger an immediate `latest.txt` update check |
+| `autoupdate on\|off`, `checkupdate`, `update [check]` | Toggle daily `03:00` GitHub OTA check, check `latest.txt` only, or check and install if newer |
 | `quote`, `ap`, `url`, `i2c`, `reboot` | Actions (`i2c` scans `0x08..0x77` on Waveshare `GPIO 8/9`) |
 
 Waveshare panel tuning (these reboot the clock): `panel` (show timing), `panel pclk 10-20`, `panel color 8|16`,

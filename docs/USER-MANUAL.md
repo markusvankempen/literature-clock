@@ -38,13 +38,13 @@ For a full technical reference (every screen on the panel, serial commands, API)
 | **Wi‑Fi** | Scan, join a network, forget saved network |
 | **Time** | Searchable **24-zone global list** (`UTC±HH · City`) + **Custom POSIX TZ** input, automatic DST rule synthesis from your browser, live clock-vs-browser drift readout, 3 browser sync buttons (`Sync time + TZ`, `Sync time only`, `Sync TZ only`), manual date/time, hardware RTC status, 12/24‑hour, page turn schedule, **Sleep / blackout mode** (`Off`, `Schedule`, or `Auto Sunset–Sunrise`) with today’s sun times + **Blackout now**, alarm |
 | **Face** | Quote page or clock faces (Classic, 1950, Flip, Digital, Split, Square) and face options |
-| **Look** | Paper palette, lamp/text/both brightness, type size and face, **Night paper** (`Off`, `Auto 21–06`, `Auto Sunset–Sunrise`, `Always dark`), zen, **Screen rotation** (`0°` / `90°` / `180°` / `270°`) |
+| **Look** | Paper palette, lamp/text/both brightness, type size (`Small`, `Medium`, `Large`, or **`Auto (fill screen)`** to maximize quote text without scrolling), typeface, **Night paper** (`Off`, `Auto 21–06`, `Auto Sunset–Sunrise`, `Always dark`), zen, **Screen rotation** (`0°` / `90°` / `180°` / `270°`) |
 | **Greeting** | Words at power‑on (and optionally after sleep), lettering, colours, animations |
 | **Effects** | Drifting snow, leaves, petals, fireflies, night sky, rain, hearts, or by season |
 | **Weather** | Line under the date (Open‑Meteo, no API key, cached place lookup) plus Latitude / Longitude fields (auto-filled or manual offline for Sunrise / Sunset) |
 | **Quotes** | Information only — the Literature collection lives directly in internal flash so updates ship as one OTA binary with no SD card required |
 | **System** | Board name, IP, Wi‑Fi RSSI, firmware version, hardware **Clock RTC** status (`verified via NTP` / `RTC-first`), **Power mode**, **Rotation**, today’s sun times, **Battery** telemetry (`%`, `mV`, charging, sensor), restart |
-| **Update** | Install single-file firmware updates (`v1.1.0`) from a local `.bin` file or an HTTP/HTTPS URL (`firmware/<board>/latest.txt` → `latest/firmware.bin`), plus an optional **Daily check (03:00)** auto-update toggle (Off by default) |
+| **Update** | **Check for update** against GitHub (`v1.2.0`), install from an HTTP/HTTPS URL (`firmware/<board>/latest.txt` → `latest/firmware.bin`) or local `.bin` with an animated `0%–100%` on-screen progress bar, plus optional **Daily check (03:00)** (Off by default) |
 | **Advanced** | **Power &amp; battery saver** (`Always on`, `Sleep Wi-Fi when idle`, `Auto on battery`, `Battery saver always`), export/import settings, I2C bus discovery (including RTC `0x51`/`0x68`, touch `0x5D`, CH422G `0x24`, INA219 `0x40`) |
 
 **On the panel only (7″ & 4.3B):** full **Setup** grid, brightness sliders, palette picker, on‑screen Wi‑Fi keyboard, **Alarm and sleep** and **Effects** sub‑screens, plus multi-directional swipe and long-press touch gestures. All boards (including M5Paper 2‑page and CYD 2.8″ 4‑page pickers) support selecting from the **24 built-in time zones** directly in Setup, while the phone page covers almost everything else.
@@ -123,7 +123,7 @@ Facts about this clock (board model, IP, Wi-Fi strength, **Clock RTC** chip with
 
 ### Update
 
-Upload `firmware.bin` or install from a URL (`https://github.com/markusvankempen/literature-clock` serves board‑specific builds at `firmware/<board>/latest.txt` and `firmware/<board>/latest/firmware.bin`; 16 MB Waveshare boards use dual ~6.2 MB OTA partitions with ~4.5 MB free). Optionally enable **Daily check (03:00)** (Off by default) so the clock checks GitHub once each night at `03:00` local time when Wi‑Fi is connected (skipped when offline or in Battery saver) and installs newer releases automatically.
+Tap **Check for update** to compare your running version (also shown in the Web UI header bar, Setup header, and Serial `help`) against `https://github.com/markusvankempen/literature-clock`, upload a local `firmware.bin`, or tap **Install from address** (`firmware/<board>/latest.txt` → `latest/firmware.bin`). During installation the clock displays an animated `0%–100%` progress bar (also reachable directly from **Setup → Check update** on the display or `checkupdate` / `update` over Serial). Optionally enable **Daily check (03:00)** (Off by default) for automatic overnight checks when Wi‑Fi is connected (skipped when offline or in Battery saver).
 
 ![Update tab](images/manual/tab-update.png)
 
@@ -165,7 +165,7 @@ These apply after a fresh flash or before you change anything. Values are stored
 |---------|---------|
 | Paper palette | **Midnight** (dark paper) |
 | Lamp / text / both | **80** (lamp and text levels match on first run) |
-| Type size | **Medium** |
+| Type size | **Medium** *(supports `Small`, `Medium`, `Large`, and `Auto (fill screen)`)* |
 | Typeface | **Serif** |
 | Night paper | **Off** |
 | Screen rotation | **0°** *(supports `0°`, `90°` portrait CW, `180°` flipped, `270°` portrait CCW)* |
@@ -258,7 +258,7 @@ The **same phone page** works, and both smaller boards support **Auto-Night Pape
 - **Sleep / blackout mode:** chooses **Off**, **Schedule (`From`–`Until`)**, or **Auto Sunset–Sunrise** — switches off the backlight and clears the screen to pure black with no page turns (or tap **Blackout now** for instant sleep); **touch the glass** to wake for one minute (or exit manual blackout).
 - **Alarm:** no sound — the whole screen **pulses** until you touch it.
 - **Hold BOOT** at power‑on (~2.5 s) to clear saved Wi‑Fi (7″ & 4.3B panels).
-- **Serial** (USB, 115200 baud): type `help` for commands (`status`, `i2c`, `power`, `rotate`, `autoupdate`, `update`, `panel`, `bl`, etc.). On Waveshare 7″ use the **UART** USB-C port; on 4.3B use the **native USB-C** port.
+- **Serial** (USB, 115200 baud): type `help` for commands (`status`, `i2c`, `power`, `rotate`, `font`, `autoupdate`, `checkupdate`, `update`, `panel`, `bl`, etc.). On Waveshare 7″ use the **UART** USB-C port; on 4.3B use the **native USB-C** port.
 - **Automated live verification &amp; docs screenshots:** run `python3 scripts/test_device_live.py` to test HTTP `/api/*` + Serial CLI end-to-end on connected hardware (and `node scripts/capture_manual_screenshots.mjs` to refresh manual screenshots from `include/web_app_html.h`). Prebuilt releases publish to [markusvankempen/literature-clock](https://github.com/markusvankempen/literature-clock).
 
 ---

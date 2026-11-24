@@ -43,33 +43,33 @@ See **[all 12 tab screenshots &amp; the swipe-gesture diagram](docs/USER-MANUAL.
 
 ---
 
-## Prebuilt OTA Firmware Releases (`v1.1.0`)
+## Prebuilt OTA Firmware Releases (`v1.2.0`)
 
 Each supported board has a dedicated folder under `firmware/<board>/` containing:
 
 ```text
 firmware/<board>/
-├── latest.txt             # Plain-text version string (currently 1.1.0)
+├── latest.txt             # Plain-text version string (currently 1.2.0)
 ├── latest/
 │   └── firmware.bin       # Latest single-file OTA binary for this board
-└── 1.1.0/
+└── 1.2.0/
     └── firmware.bin       # Versioned archive binary
 ```
 
 ### Board Manifests &amp; Binaries
 
-| Board | Manifest (`latest.txt`) | Latest Binary (`latest/firmware.bin`) | Archived Version (`1.1.0`) |
+| Board | Manifest (`latest.txt`) | Latest Binary (`latest/firmware.bin`) | Archived Version (`1.2.0`) |
 |---|---|---|---|
-| **Waveshare 7″** | [`firmware/waveshare-lcd7/latest.txt`](firmware/waveshare-lcd7/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd7/latest/firmware.bin) | [`1.1.0/firmware.bin`](firmware/waveshare-lcd7/1.1.0/firmware.bin) |
-| **Waveshare 4.3B** | [`firmware/waveshare-lcd43/latest.txt`](firmware/waveshare-lcd43/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd43/latest/firmware.bin) | [`1.1.0/firmware.bin`](firmware/waveshare-lcd43/1.1.0/firmware.bin) |
-| **M5Paper** | [`firmware/m5paper/latest.txt`](firmware/m5paper/latest.txt) | [`latest/firmware.bin`](firmware/m5paper/latest/firmware.bin) | [`1.1.0/firmware.bin`](firmware/m5paper/1.1.0/firmware.bin) |
-| **ESP32 2.8″ CYD** | [`firmware/cyd-28/latest.txt`](firmware/cyd-28/latest.txt) | [`latest/firmware.bin`](firmware/cyd-28/latest/firmware.bin) | [`1.1.0/firmware.bin`](firmware/cyd-28/1.1.0/firmware.bin) |
+| **Waveshare 7″** | [`firmware/waveshare-lcd7/latest.txt`](firmware/waveshare-lcd7/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd7/latest/firmware.bin) | [`1.2.0/firmware.bin`](firmware/waveshare-lcd7/1.2.0/firmware.bin) |
+| **Waveshare 4.3B** | [`firmware/waveshare-lcd43/latest.txt`](firmware/waveshare-lcd43/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd43/latest/firmware.bin) | [`1.2.0/firmware.bin`](firmware/waveshare-lcd43/1.2.0/firmware.bin) |
+| **M5Paper** | [`firmware/m5paper/latest.txt`](firmware/m5paper/latest.txt) | [`latest/firmware.bin`](firmware/m5paper/latest/firmware.bin) | [`1.2.0/firmware.bin`](firmware/m5paper/1.2.0/firmware.bin) |
+| **ESP32 2.8″ CYD** | [`firmware/cyd-28/latest.txt`](firmware/cyd-28/latest.txt) | [`latest/firmware.bin`](firmware/cyd-28/latest/firmware.bin) | [`1.2.0/firmware.bin`](firmware/cyd-28/1.2.0/firmware.bin) |
 
 ### Updating Your Clock Over Wi-Fi
 
-1. Open the clock’s **Update** tab in your browser (`http://literature-clock.local/` or the clock’s IP).
-2. **Manual check / install:** Keep the prefilled **Firmware address** (`https://raw.githubusercontent.com/markusvankempen/literature-clock/main/firmware/<board>/latest.txt`) and tap **Install from address**. The clock compares `latest.txt` against its running version and automatically installs `latest/firmware.bin` if a newer version is published (or upload a downloaded `.bin` file directly).
-3. **Optional daily 03:00 AM auto-check:** Under **Daily check (03:00)** on the **Update** tab (or via `autoupdate on` on the Serial console), you can opt in to an automatic daily check at `03:00` local time whenever Wi-Fi is connected (skipped automatically when offline or in Battery saver). Keep power connected while an update writes and restarts.
+1. **From the clock screen:** Open **Setup** (shows the running firmware version in the header) and tap **Check update** to check GitHub and install newer firmware with a live animated `0%–100%` progress bar.
+2. **From the Web UI:** Open the **Update** tab (`http://literature-clock.local/` — running version is shown in the header bar), tap **Check for update** to check `latest.txt` without rebooting, tap **Install from address** to install `latest/firmware.bin`, or upload a downloaded `.bin` file.
+3. **Optional daily 03:00 AM auto-check:** Under **Daily check (03:00)** on the **Update** tab (or via `autoupdate on` on the Serial console), opt in to an automatic daily check at `03:00` local time whenever Wi-Fi is connected (skipped automatically when offline or in Battery saver). Keep power connected while an update writes and restarts.
 
 ---
 
