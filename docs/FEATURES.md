@@ -255,6 +255,14 @@ page's ink, one colour, two colours in turn, or a rainbow word by word.
 | 4 | Heart and arrow | A red heart with an arrow drawn through it, then the words |
 | 5 | Christmas | Words, with snow and a string of blinking lights |
 | 6 | Birthday balloons | Words, with balloons rising |
+| 7 | Snow | Words, with falling snow crystals |
+| 8 | Autumn leaves | Words, with tumbling autumn leaves |
+| 9 | Blossom petals | Words, with spinning pink petals |
+| 10 | Fireflies | Words, with wandering golden glows |
+| 11 | Night sky | Words, with twinkling stars and shooting stars |
+| 12 | Gentle rain | Words, with thin slanting drops |
+| 13 | Floating hearts | Words, with rising hearts |
+| 14 | By the season | Words, with the current season's ambient effect |
 
 Touch the screen at any point to skip. The greeting is held a moment after it finishes.
 
@@ -283,9 +291,12 @@ page held in memory, so the words never flicker.
 | Blossom petals | Pink petals, spinning |
 | Fireflies | Soft golden glows that wander and pulse |
 | Night sky | Twinkling stars, with an occasional shooting star (over the words only) |
-| Gentle rain | Thin slanting drops |
-| Floating hearts | Hearts rising |
-| By the season | Snow in Dec–Feb, petals Mar–May, fireflies Jun–Aug, leaves Sep–Nov |
+| Rain | Gentle rain (`7`): thin slanting drops |
+| Hearts | Floating hearts (`8`): hearts rising |
+| Balloons | Birthday balloons (`9`): colourful balloons rising |
+| Fireworks | Fireworks (`10`): rockets bursting into fading colourful sparks |
+| Christmas | Christmas (`11`): snow crystals with a top string of blinking coloured lights |
+| By season | `5`: Snow in Dec–Feb, petals Mar–May, fireflies Jun–Aug, leaves Sep–Nov |
 
 **Where:** *over the words*, or *in the margins only* (pieces stay in the strips beside the text).
 **How many:** a few, some, plenty. **On the zen page** and **On the clock faces:** each can drift or stay
@@ -469,7 +480,7 @@ Because the Literature pack lives inside firmware flash and **Waveshare 7" & 4.3
 **single-file OTA binary with no SD card required**. The **Update** tab supports:
 
 - **Upload .bin** — choose the `firmware.bin` built for this board (`waveshare-lcd7`, `waveshare-lcd43`, `m5paper`, or `cyd-28`).
-- **Check for update** — compares `FW_VERSION` (`1.2.3`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
+- **Check for update** — compares `FW_VERSION` (`1.2.4`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
 - **Install from address / on-device Setup → Check update** — fetches `latest.txt` and installs `latest/firmware.bin` if newer, showing a live animated **`0%–100%` progress bar** on the clock screen (also shown during `.bin` uploads and serial `update`).
 - **Daily check (03:00)** — **Off** by default (opt-in on the **Update** tab, `/api/settings` `autoUpdate`,
   or serial `autoupdate on`). Checks `firmware/<board>/latest.txt` from
@@ -554,11 +565,11 @@ seconds, parsed via `strtoll` to set system clock, hardware RTC, and NVS directl
 | `offline on\|off`, `weather on\|off` | Switches |
 | `units c\|f`, `place <city>`, `coords <lat> <lon>` | Weather & Sunrise/Sunset location |
 | `theme 0-11`, `face <page\|classic\|1950\|flip\|digital\|split\|square\|nixie>`, `faceopt <opt> <on\|off>`, `rotate <0\|90\|180\|270>`, `night off\|auto\|sun\|on`, `clock 12\|24`, `datetime YYYY-MM-DD HH:MM` | Look, clock face/options, orientation, manual clock |
-| `ambient [0-8\|where\|amount\|zen\|faces ...]` | Falling effects kind, placement, count, zen/faces toggles |
+| `ambient [0-11\|where\|amount\|zen\|faces ...]` | Falling effects kind (`0..11`, incl. balloons/fireworks/christmas), placement, count, zen/faces toggles |
 | `sleep off\|on\|sun\|now\|wake\|<from> <to>`, `blackout on\|off` | Scheduled/sun blackout or instant screen sleep/wake |
 | `zen on\|off` | The words alone |
 | `setup [done]`, `factoryreset confirm` | Re-open first-time setup wizard (or mark complete) / wipe NVS &amp; Wi-Fi |
-| `greet [on\|off\|show\|wake on\|off\|font 0-2\|anim 0-6\|size 40-130\|color 0-3\|text <msg>]` | Greeting toggle, show now, style, or message |
+| `greet [on\|off\|show\|wake on\|off\|font 0-2\|anim 0-14\|size 40-130\|color 0-3\|text <msg>]` | Greeting toggle, show now, style (`0..14`), or message |
 | `alarm 07:30\|off` | Alarm |
 | `wifi <ssid> <pass>`, `wifi forget`, `scan` | Wi-Fi |
 | `ap [pass <pw>\|off]` | Phone AP status or optional WPA2 password (`8`–`63` chars) |
