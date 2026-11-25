@@ -28,7 +28,7 @@ See **[all 12 tab screenshots &amp; the swipe-gesture diagram](docs/USER-MANUAL.
 - **Battery indicator icon:** Automatically displays charge level in the clock header and phone UI when **M5Power** PMIC, I2C **INA219** (`0x40`), or an ADC divider is present.
 - **Eight clock faces &amp; 90° screen rotation:** Quote page, Classic, 1950 rectangle, Flip (4 or 6 individual digit cards), Digital, Split, **Square (1970s retro)** (`clockFace=7`, smooth AA + full-screen Zen), and **Nixie tube** (`clockFace=8`), with `0°` / `90°` / `180°` / `270°` orientation support across portrait (`480×800`) and landscape (`800×480`).
 - **Twelve paper palettes, Auto-Night &amp; Blackout Sleep:** Supports `Off`, `Auto 21:00–06:00`, **Auto Sunset–Sunrise** (solar calculation from Weather or manual coordinates), `Always dark`, scheduled blackout sleep, and instant **Blackout now**.
-- **Phone Web UI, Setup Wizard &amp; Touch Gestures:** Guided 4-step **First-time setup wizard** after factory reset (on-device touchscreen wizard on Waveshare panels + Phone Web UI wizard across all boards), full 12-tab browser interface at `http://literature-clock.local/` (with optional WPA2 password for `LiteratureClock`, factory reset, and settings export/import), on-device &amp; Serial greeting editor, plus capacitive swipes and long-press Zen mode on 7″ and 4.3B panels.
+- **Phone Web UI, Setup Wizard &amp; Full 3-Interface Parity:** Guided 4-step **First-time setup wizard**, full 12-tab browser interface (with offline toggle, optional WPA2 password for `LiteratureClock`, factory reset, and settings export/import), matching **Display (`More` + Effects)** sub-panels, and complete **Serial CLI** control.
 
 ---
 
@@ -43,27 +43,27 @@ See **[all 12 tab screenshots &amp; the swipe-gesture diagram](docs/USER-MANUAL.
 
 ---
 
-## Prebuilt OTA Firmware Releases (`v1.2.1`)
+## Prebuilt OTA Firmware Releases (`v1.2.2`)
 
 Each supported board has a dedicated folder under `firmware/<board>/` containing:
 
 ```text
 firmware/<board>/
-├── latest.txt             # Plain-text version string (currently 1.2.1)
+├── latest.txt             # Plain-text version string (currently 1.2.2)
 ├── latest/
 │   └── firmware.bin       # Latest single-file OTA binary for this board
-└── 1.2.1/
+└── 1.2.2/
     └── firmware.bin       # Versioned archive binary
 ```
 
 ### Board Manifests &amp; Binaries
 
-| Board | Manifest (`latest.txt`) | Latest Binary (`latest/firmware.bin`) | Archived Version (`1.2.1`) |
+| Board | Manifest (`latest.txt`) | Latest Binary (`latest/firmware.bin`) | Archived Version (`1.2.2`) |
 |---|---|---|---|
-| **Waveshare 7″** | [`firmware/waveshare-lcd7/latest.txt`](firmware/waveshare-lcd7/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd7/latest/firmware.bin) | [`1.2.1/firmware.bin`](firmware/waveshare-lcd7/1.2.1/firmware.bin) |
-| **Waveshare 4.3B** | [`firmware/waveshare-lcd43/latest.txt`](firmware/waveshare-lcd43/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd43/latest/firmware.bin) | [`1.2.1/firmware.bin`](firmware/waveshare-lcd43/1.2.1/firmware.bin) |
-| **M5Paper** | [`firmware/m5paper/latest.txt`](firmware/m5paper/latest.txt) | [`latest/firmware.bin`](firmware/m5paper/latest/firmware.bin) | [`1.2.1/firmware.bin`](firmware/m5paper/1.2.1/firmware.bin) |
-| **ESP32 2.8″ CYD** | [`firmware/cyd-28/latest.txt`](firmware/cyd-28/latest.txt) | [`latest/firmware.bin`](firmware/cyd-28/latest/firmware.bin) | [`1.2.1/firmware.bin`](firmware/cyd-28/1.2.1/firmware.bin) |
+| **Waveshare 7″** | [`firmware/waveshare-lcd7/latest.txt`](firmware/waveshare-lcd7/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd7/latest/firmware.bin) | [`1.2.2/firmware.bin`](firmware/waveshare-lcd7/1.2.2/firmware.bin) |
+| **Waveshare 4.3B** | [`firmware/waveshare-lcd43/latest.txt`](firmware/waveshare-lcd43/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd43/latest/firmware.bin) | [`1.2.2/firmware.bin`](firmware/waveshare-lcd43/1.2.2/firmware.bin) |
+| **M5Paper** | [`firmware/m5paper/latest.txt`](firmware/m5paper/latest.txt) | [`latest/firmware.bin`](firmware/m5paper/latest/firmware.bin) | [`1.2.2/firmware.bin`](firmware/m5paper/1.2.2/firmware.bin) |
+| **ESP32 2.8″ CYD** | [`firmware/cyd-28/latest.txt`](firmware/cyd-28/latest.txt) | [`latest/firmware.bin`](firmware/cyd-28/latest/firmware.bin) | [`1.2.2/firmware.bin`](firmware/cyd-28/1.2.2/firmware.bin) |
 
 ### Updating Your Clock Over Wi-Fi
 

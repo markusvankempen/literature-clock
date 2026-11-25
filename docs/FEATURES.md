@@ -469,7 +469,7 @@ Because the Literature pack lives inside firmware flash and **Waveshare 7" & 4.3
 **single-file OTA binary with no SD card required**. The **Update** tab supports:
 
 - **Upload .bin** — choose the `firmware.bin` built for this board (`waveshare-lcd7`, `waveshare-lcd43`, `m5paper`, or `cyd-28`).
-- **Check for update** — compares `FW_VERSION` (`1.2.1`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
+- **Check for update** — compares `FW_VERSION` (`1.2.2`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
 - **Install from address / on-device Setup → Check update** — fetches `latest.txt` and installs `latest/firmware.bin` if newer, showing a live animated **`0%–100%` progress bar** on the clock screen (also shown during `.bin` uploads and serial `update`).
 - **Daily check (03:00)** — **Off** by default (opt-in on the **Update** tab, `/api/settings` `autoUpdate`,
   or serial `autoupdate on`). Checks `firmware/<board>/latest.txt` from
@@ -546,16 +546,19 @@ seconds, parsed via `strtoll` to set system clock, hardware RTC, and NVS directl
 | `status` | Wi-Fi, time, settings, hardware RTC (`hwRtc`), sun times (`sun`), sleep mode, and battery reading |
 | `tz <city\|posix\|list>` | Set time zone or list all 24 built-in zones |
 | `font s\|m\|l\|auto` | Type size (`auto` maximizes quote text without scrolling/clipping) |
+| `typeface <serif\|smooth\|bold\|italic\|0-3>` | Font family (`fontface` alias) |
+| `bright\|lamp\|ink <20-255>` | Backlight/ink/combined brightness levels |
 | `interval 1\|5\|15\|30\|60` | Page turn |
 | `random on\|off` | Any minute inside the window |
 | `power 0\|1\|2\|3\|always\|idle\|battery\|saver` | Power / Wi-Fi / battery saver mode (`0` always on, `1` sleep idle Wi-Fi, `2` auto on battery, `3` battery saver always) |
 | `offline on\|off`, `weather on\|off` | Switches |
 | `units c\|f`, `place <city>`, `coords <lat> <lon>` | Weather & Sunrise/Sunset location |
-| `theme 0-11`, `face <page\|classic\|1950\|flip\|digital\|split\|square\|nixie>`, `rotate <0\|90\|180\|270>`, `night off\|auto\|sun\|on`, `clock 12\|24` | Look, clock face, orientation |
+| `theme 0-11`, `face <page\|classic\|1950\|flip\|digital\|split\|square\|nixie>`, `faceopt <opt> <on\|off>`, `rotate <0\|90\|180\|270>`, `night off\|auto\|sun\|on`, `clock 12\|24`, `datetime YYYY-MM-DD HH:MM` | Look, clock face/options, orientation, manual clock |
+| `ambient [0-8\|where\|amount\|zen\|faces ...]` | Falling effects kind, placement, count, zen/faces toggles |
 | `sleep off\|on\|sun\|now\|wake\|<from> <to>`, `blackout on\|off` | Scheduled/sun blackout or instant screen sleep/wake |
 | `zen on\|off` | The words alone |
 | `setup [done]`, `factoryreset confirm` | Re-open first-time setup wizard (or mark complete) / wipe NVS &amp; Wi-Fi |
-| `greet [on\|off\|show\|wake on\|off\|font 0-2\|anim 0-6\|text <msg>]` | Greeting toggle, show now, style, or message |
+| `greet [on\|off\|show\|wake on\|off\|font 0-2\|anim 0-6\|size 40-130\|color 0-3\|text <msg>]` | Greeting toggle, show now, style, or message |
 | `alarm 07:30\|off` | Alarm |
 | `wifi <ssid> <pass>`, `wifi forget`, `scan` | Wi-Fi |
 | `ap [pass <pw>\|off]` | Phone AP status or optional WPA2 password (`8`–`63` chars) |
