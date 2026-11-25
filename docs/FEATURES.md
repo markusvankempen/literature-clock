@@ -107,10 +107,10 @@ Touch (including capacitive gestures on Waveshare 7" & 4.3B):
 | **Swipe up / down in centre** (Waveshare `>180 px` from edges) | Cycles through the 12 paper palettes (`NextTheme` / `PrevTheme`) |
 | **Swipe up / down at left/right edge** (Waveshare `≤180 px` from edge) | Steps lamp and text brightness brighter / dimmer (`±35`) |
 | **Long-press** (`≥700 ms` above footer buttons, Waveshare) | Enters **Zen mode** (tap anywhere to leave) |
-| **Type size** button | Cycles Small → Medium → Large (over a clock face this button is **Clock type** and steps through the faces) |
-| **New quote** button | Another passage for this minute (over a clock face this button is **Quotes** and goes back to the quote page) |
-| **Paper** button | The palette picker |
-| **Zen** button | The zen page |
+| **Type size / Face button** | On Quote page (`Type: S`/`M`/`L`/`Auto`): cycles Small → Medium → Large → Auto. Over a clock face (`Classic >` / `Flip >` / `Nixie >` …): steps to the next face |
+| **Quote / Quotes button** | On Quote page: shows another passage for this minute. Over a clock face (**Quotes**): returns directly to the quote page |
+| **Paper / Face opts button** | On Quote page (shows current palette name): opens the 12-palette picker. Over a clock face (**Face opts** / **Style**): opens Clock face options and returns straight to the clock face |
+| **Zen / Full screen button** | Enters full-screen Zen mode (hides footer/UI on quotes or stretches clock faces edge-to-edge) |
 | **Setup** button | The Setup screen |
 
 Over a clock face the buttons are hidden. Touch the face to show them (along with a compact swipe reminder
@@ -469,7 +469,7 @@ Because the Literature pack lives inside firmware flash and **Waveshare 7" & 4.3
 **single-file OTA binary with no SD card required**. The **Update** tab supports:
 
 - **Upload .bin** — choose the `firmware.bin` built for this board (`waveshare-lcd7`, `waveshare-lcd43`, `m5paper`, or `cyd-28`).
-- **Check for update** — compares `FW_VERSION` (`1.2.2`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
+- **Check for update** — compares `FW_VERSION` (`1.2.3`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
 - **Install from address / on-device Setup → Check update** — fetches `latest.txt` and installs `latest/firmware.bin` if newer, showing a live animated **`0%–100%` progress bar** on the clock screen (also shown during `.bin` uploads and serial `update`).
 - **Daily check (03:00)** — **Off** by default (opt-in on the **Update** tab, `/api/settings` `autoUpdate`,
   or serial `autoupdate on`). Checks `firmware/<board>/latest.txt` from
