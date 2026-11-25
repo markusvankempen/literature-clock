@@ -480,7 +480,7 @@ Because the Literature pack lives inside firmware flash and **Waveshare 7" & 4.3
 **single-file OTA binary with no SD card required**. The **Update** tab supports:
 
 - **Upload .bin** — choose the `firmware.bin` built for this board (`waveshare-lcd7`, `waveshare-lcd43`, `m5paper`, or `cyd-28`).
-- **Check for update** — compares `FW_VERSION` (`1.2.4`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
+- **Check for update** — compares `FW_VERSION` (`1.2.5`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
 - **Install from address / on-device Setup → Check update** — fetches `latest.txt` and installs `latest/firmware.bin` if newer, showing a live animated **`0%–100%` progress bar** on the clock screen (also shown during `.bin` uploads and serial `update`).
 - **Daily check (03:00)** — **Off** by default (opt-in on the **Update** tab, `/api/settings` `autoUpdate`,
   or serial `autoupdate on`). Checks `firmware/<board>/latest.txt` from
@@ -499,9 +499,7 @@ Setup.
   - **`1` — Sleep Wi-Fi when idle:** Turns Wi-Fi off after `120 s` of phone-page inactivity (`WIFI_OFF` + `80 MHz` CPU except Waveshare RGB). Onboard flash quote turns **never** wake Wi-Fi; touching the phone/Wi-Fi icon wakes it (`30 s` grace).
   - **`2` — Auto on battery:** Activates automatically whenever discharging on battery (`M5Power` VBUS `< 4.3 V`, `INA219` `0x40`, or `-DBATTERY_ADC_PIN`) and restores normal power when USB/charging returns: scales backlight & ink to **55%** (on top of Night Paper), pauses ambient animations, skips weather fetches, sleeps Wi-Fi after **`45 s`** idle, and skips boot Wi-Fi completely when a valid hardware RTC is present.
   - **`3` — Battery saver always:** Same power-saving rules unconditionally (55% dim, ambient paused, 45 s Wi-Fi sleep, skip boot Wi-Fi on valid RTC) — useful on stock Waveshare 7″/4.3B boards running on a LiPo without an external voltage gauge.
-- **Offline mode:** the radio stays off; the clock keeps time from its hardware RTC (`PCF85063A` on 4.3B,
-  `BM8563` on M5Paper, optional external `PCF85063A`/`DS3231`), its internal oscillator and the last value saved
-  in flash. Switch it from the QR screen or with `offline on|off` on the serial console.
+- **Standalone / offline mode:** powers Wi-Fi completely off (`WIFI_OFF`) and runs strictly from the hardware RTC (`PCF85063A` on 4.3B, `BM8563` on M5Paper, optional external `PCF85063A`/`DS3231`), internal oscillator, flash quotes, and NVS settings. Toggle Standalone/Wi-Fi or start/stop the temporary **Clock AP** (`LiteratureClock`) directly from **Display (`Setup → More` or AP QR screen)**, **Web UI (`Wi-Fi` / `Advanced`)**, or **Serial (`standalone`, `wifi on|off`, `ap on|off`)**.
 - **Battery indicator icon & telemetry (`src/battery.cpp`):** automatically reads and caches (10 s) battery
   level across supported hardware:
   - **M5Paper:** onboard `M5Power` PMIC (`M5.Power.getBatteryLevel()` / voltage / charging state).
@@ -532,6 +530,7 @@ the clock on a network you trust.
 | `/api/next` | POST | Turn the page |
 | `/api/greet` | POST | Show the greeting now |
 | `/api/sleep` | POST | Trigger/clear instant blackout (`on` or `mode` = `1`/`on`, `0`/`off`/`wake`, or `toggle`) |
+| `/api/ap` | POST | Start, stop, or toggle the `LiteratureClock` setup AP (`on` or `mode` = `1`/`on`/`start`, `0`/`off`/`stop`, or `toggle`) |
 | `/api/reboot` | POST | Restart |
 | `/api/update` | POST | Upload a firmware file (shows live `0–100%` progress bar on screen) |
 | `/api/update-url` | POST | Install firmware from an address (`url`, supports `.bin` or `latest.txt` → `latest/firmware.bin`, with `0–100%` progress bar) |
@@ -562,7 +561,7 @@ seconds, parsed via `strtoll` to set system clock, hardware RTC, and NVS directl
 | `interval 1\|5\|15\|30\|60` | Page turn |
 | `random on\|off` | Any minute inside the window |
 | `power 0\|1\|2\|3\|always\|idle\|battery\|saver` | Power / Wi-Fi / battery saver mode (`0` always on, `1` sleep idle Wi-Fi, `2` auto on battery, `3` battery saver always) |
-| `offline on\|off`, `weather on\|off` | Switches |
+| `standalone\|offline on\|off`, `weather on\|off` | Toggle Standalone RTC mode (`WIFI_OFF`) / Weather |
 | `units c\|f`, `place <city>`, `coords <lat> <lon>` | Weather & Sunrise/Sunset location |
 | `theme 0-11`, `face <page\|classic\|1950\|flip\|digital\|split\|square\|nixie>`, `faceopt <opt> <on\|off>`, `rotate <0\|90\|180\|270>`, `night off\|auto\|sun\|on`, `clock 12\|24`, `datetime YYYY-MM-DD HH:MM` | Look, clock face/options, orientation, manual clock |
 | `ambient [0-11\|where\|amount\|zen\|faces ...]` | Falling effects kind (`0..11`, incl. balloons/fireworks/christmas), placement, count, zen/faces toggles |
@@ -571,8 +570,8 @@ seconds, parsed via `strtoll` to set system clock, hardware RTC, and NVS directl
 | `setup [done]`, `factoryreset confirm` | Re-open first-time setup wizard (or mark complete) / wipe NVS &amp; Wi-Fi |
 | `greet [on\|off\|show\|wake on\|off\|font 0-2\|anim 0-14\|size 40-130\|color 0-3\|text <msg>]` | Greeting toggle, show now, style (`0..14`), or message |
 | `alarm 07:30\|off` | Alarm |
-| `wifi <ssid> <pass>`, `wifi forget`, `scan` | Wi-Fi |
-| `ap [pass <pw>\|off]` | Phone AP status or optional WPA2 password (`8`–`63` chars) |
+| `wifi [on\|off\|<ssid> <pass>\|forget]`, `scan` | Control Wi-Fi radio, join a network, clear credentials, or scan |
+| `ap [on\|off\|pass <pw>\|off]` | Start/stop Clock AP, check status, or set WPA2 password (`8`–`63` chars) |
 | `autoupdate on\|off`, `checkupdate`, `update [check]` | Toggle daily `03:00` GitHub OTA check, check `latest.txt` only, or check and install if newer |
 | `quote`, `url`, `i2c`, `reboot` | Actions (`i2c` scans `0x08..0x77` on Waveshare `GPIO 8/9`) |
 
