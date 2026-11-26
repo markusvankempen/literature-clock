@@ -480,7 +480,7 @@ Because the Literature pack lives inside firmware flash and **Waveshare 7" & 4.3
 **single-file OTA binary with no SD card required**. The **Update** tab supports:
 
 - **Upload .bin** — choose the `firmware.bin` built for this board (`waveshare-lcd7`, `waveshare-lcd43`, `m5paper`, or `cyd-28`).
-- **Check for update** — compares `FW_VERSION` (`1.2.6`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
+- **Check for update** — compares `FW_VERSION` (`1.2.7`, also shown in the Web UI top bar, on-device **Setup** header, and Serial `help`) against `firmware/<board>/latest.txt` without installing (`POST /api/update-check`, Web UI **Check for update**, or serial `checkupdate` / `update check`).
 - **Install from address / on-device Setup → Check update** — fetches `latest.txt` and installs `latest/firmware.bin` if newer, showing a live animated **`0%–100%` progress bar** on the clock screen (also shown during `.bin` uploads and serial `update`).
 - **Daily check (03:00)** — **Off** by default (opt-in on the **Update** tab, `/api/settings` `autoUpdate`,
   or serial `autoupdate on`). Checks `firmware/<board>/latest.txt` from

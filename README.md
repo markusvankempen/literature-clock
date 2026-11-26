@@ -43,27 +43,27 @@ See **[all 12 tab screenshots &amp; the swipe-gesture diagram](docs/USER-MANUAL.
 
 ---
 
-## Prebuilt OTA Firmware Releases (`v1.2.6`)
+## Prebuilt OTA Firmware Releases (`v1.2.7`)
 
 Each supported board has a dedicated folder under `firmware/<board>/` containing:
 
 ```text
 firmware/<board>/
-├── latest.txt             # Plain-text version string (currently 1.2.6)
+├── latest.txt             # Plain-text version string (currently 1.2.7)
 ├── latest/
 │   └── firmware.bin       # Latest single-file OTA binary for this board
-└── 1.2.6/
+└── 1.2.7/
     └── firmware.bin       # Versioned archive binary
 ```
 
 ### Board Manifests &amp; Binaries
 
-| Board | Manifest (`latest.txt`) | Latest Binary (`latest/firmware.bin`) | Archived Version (`1.2.6`) |
+| Board | Manifest (`latest.txt`) | Latest Binary (`latest/firmware.bin`) | Archived Version (`1.2.7`) |
 |---|---|---|---|
-| **Waveshare 7″** | [`firmware/waveshare-lcd7/latest.txt`](firmware/waveshare-lcd7/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd7/latest/firmware.bin) | [`1.2.6/firmware.bin`](firmware/waveshare-lcd7/1.2.6/firmware.bin) |
-| **Waveshare 4.3B** | [`firmware/waveshare-lcd43/latest.txt`](firmware/waveshare-lcd43/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd43/latest/firmware.bin) | [`1.2.6/firmware.bin`](firmware/waveshare-lcd43/1.2.6/firmware.bin) |
-| **M5Paper** | [`firmware/m5paper/latest.txt`](firmware/m5paper/latest.txt) | [`latest/firmware.bin`](firmware/m5paper/latest/firmware.bin) | [`1.2.6/firmware.bin`](firmware/m5paper/1.2.6/firmware.bin) |
-| **ESP32 2.8″ CYD** | [`firmware/cyd-28/latest.txt`](firmware/cyd-28/latest.txt) | [`latest/firmware.bin`](firmware/cyd-28/latest/firmware.bin) | [`1.2.6/firmware.bin`](firmware/cyd-28/1.2.6/firmware.bin) |
+| **Waveshare 7″** | [`firmware/waveshare-lcd7/latest.txt`](firmware/waveshare-lcd7/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd7/latest/firmware.bin) | [`1.2.7/firmware.bin`](firmware/waveshare-lcd7/1.2.7/firmware.bin) |
+| **Waveshare 4.3B** | [`firmware/waveshare-lcd43/latest.txt`](firmware/waveshare-lcd43/latest.txt) | [`latest/firmware.bin`](firmware/waveshare-lcd43/latest/firmware.bin) | [`1.2.7/firmware.bin`](firmware/waveshare-lcd43/1.2.7/firmware.bin) |
+| **M5Paper** | [`firmware/m5paper/latest.txt`](firmware/m5paper/latest.txt) | [`latest/firmware.bin`](firmware/m5paper/latest/firmware.bin) | [`1.2.7/firmware.bin`](firmware/m5paper/1.2.7/firmware.bin) |
+| **ESP32 2.8″ CYD** | [`firmware/cyd-28/latest.txt`](firmware/cyd-28/latest.txt) | [`latest/firmware.bin`](firmware/cyd-28/latest/firmware.bin) | [`1.2.7/firmware.bin`](firmware/cyd-28/1.2.7/firmware.bin) |
 
 ### Updating Your Clock Over Wi-Fi
 
